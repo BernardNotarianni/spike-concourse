@@ -30,6 +30,7 @@ jobs:
       - name: github-spike-concourse
   - put: gcr.io/spike-concourse/my-webapp
     params: {build: github-spike-concourse/my-webapp}
+    get_params: {skip_download: true}
 - name: "Deploy on GKE"
   plan:
   - get: github-spike-concourse
