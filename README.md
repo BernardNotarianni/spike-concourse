@@ -2,29 +2,36 @@
 
 Official web site [https://concourse-ci.org/](https://concourse-ci.org/)
 
-Run tests:
+Run tests
 
     $ pytest
 
-Start the web app:
+Start the web app
 
     $ python3 my_webapp.py
     
-Build docker image:
+Build docker image
 
     $ docker build -t my-webapp . 
 
-Start concourse server:
+Start concourse server
 
     $ docker-compose up -d
     
     
-Initialize the pipeline:
+Initialize the pipeline
 
     $ fly -t tutorial set-pipeline -c pipeline.yaml -p my-webapp -l credentials.yaml
-
     
+Activate gcloud service account
 
-Local directories are [not allowed](https://github.com/concourse/git-resource/issues/82#issuecomment-251991921).
-All resources have to come from the cloud.
+    $ gcloud auth activate-service-account --key-file=/home/bernard/gcloud-key-project-concourse.json
+    
+Get `kubeconfig.yml`
+
+    $ KUBECONFIG=kubeconfig.yml gcloud --project spike-concourse container clusters get-credentials concourse --region europe-west1-c
+
+List nodes
+
+    $ KUBECONFIG=kubeconfig.yml kubectl get nodes
 
