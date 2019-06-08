@@ -30,24 +30,9 @@ metadata:
   namespace: default
   name: my-webapp-svc
 spec:
+  type: LoadBalancer
   ports:
   - name: http
     port: 8000
-    protocol: TCP
   selector:
     app: my-webapp
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  namespace: default
-  name: my-webapp
-  annotations:
-    kubernetes.io/ingress.class: traefik
-spec:
-  rules:
-    - http:
-        paths:
-          - backend:
-              serviceName: my-webapp-svc
-              servicePort: 8000
