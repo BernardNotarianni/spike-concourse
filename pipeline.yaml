@@ -1,0 +1,24 @@
+resources:
+- name: spike-concourse
+  type: git
+  source:
+    uri: https://github.com/BernardNotarianni/spike-concourse.git
+jobs:
+- name: tests
+  plan:
+  - get: spike-concourse
+  - task: sample-task
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: grihabor/pytest
+      run:
+        path: sh
+        args:
+          - -exc
+          - |
+            pytest
+      inputs:
+      - name: concourse-ci
