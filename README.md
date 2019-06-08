@@ -13,4 +13,8 @@ Start the web app:
 Start concourse server:
 
     $ docker-compose up -d
+    
+    
+Local directories are [not allowed](https://github.com/concourse/git-resource/issues/82#issuecomment-251991921).
+All resources have to come from the cloud.
 
