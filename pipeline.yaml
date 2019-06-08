@@ -13,6 +13,7 @@ jobs:
 - name: tests
   plan:
   - get: github-spike-concourse
+    trigger: true
   - task: run-pytest
     config:
       platform: linux
@@ -34,6 +35,7 @@ jobs:
 - name: "Deploy on GKE"
   plan:
   - get: github-spike-concourse
+    passed: [tests]
   - task: publish
     config:
       platform: linux
