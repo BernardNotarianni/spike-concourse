@@ -35,6 +35,7 @@ jobs:
 - name: "Deploy on GKE"
   plan:
   - get: github-spike-concourse
+    trigger: true
     passed: [tests]
   - task: publish
     config:
