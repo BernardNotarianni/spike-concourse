@@ -3,7 +3,7 @@ resources:
   type: git
   source:
     uri: https://github.com/BernardNotarianni/spike-concourse.git
-- name: spike-concourse-docker-image
+- name: gcr.io/spike-concourse/my-webapp
   type: docker-image
   source:
     repository: gcr.io/spike-concourse/my-webapp
@@ -28,10 +28,5 @@ jobs:
             pytest
       inputs:
       - name: github-spike-concourse
-- name: publish-docker-image
-  public: true
-  serial: true
-  plan:
-  - get: github-spike-concourse
-  - put: spike-concourse-docker-image
+  - put: gcr.io/spike-concourse/my-webapp
     params: {build: github-spike-concourse/my-webapp}
