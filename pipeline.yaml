@@ -30,3 +30,31 @@ jobs:
       - name: github-spike-concourse
   - put: gcr.io/spike-concourse/my-webapp
     params: {build: github-spike-concourse/my-webapp}
+- name: "Deploy on GKE"
+  plan:
+  - get: github-spike-concourse
+  - task: publish
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: notarianni/gke-kubectl
+      inputs:
+      - name: github-spike-concourse
+      run:
+        path: sh
+        args:
+          - -exc
+          - |
+            cat <<EOT >> gcp-key.json
+            ((gcr-key))
+            EOT
+            cat <<EOT >> kubeconfig.yaml
+            ((k8s_server))
+            EOT
+            gcloud auth activate-service-account --key-file=gcp-key.json
+            export KUBECONFIG=./kubeconfig.yaml
+            kubectl delete pod --selector=app=my-webapp
+            kubectl apply -f github-spike-concourse/k8s.yaml
+            
