@@ -34,4 +34,4 @@ jobs:
   plan:
   - get: github-spike-concourse
   - put: spike-concourse-docker-image
-    params: {build: my-webapp}
+    params: {build: github-spike-concourse/my-webapp}
