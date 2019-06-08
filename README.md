@@ -2,7 +2,6 @@
 
 Official web site [https://concourse-ci.org/](https://concourse-ci.org/)
 
-
 Run tests:
 
     $ pytest
