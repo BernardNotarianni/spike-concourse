@@ -21,4 +21,4 @@ jobs:
           - |
             pytest
       inputs:
-      - name: concourse-ci
+      - name: spike-concourse
