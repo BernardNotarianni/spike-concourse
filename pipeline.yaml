@@ -1,12 +1,12 @@
 resources:
-- name: spike-concourse
+- name: github-spike-concourse
   type: git
   source:
     uri: https://github.com/BernardNotarianni/spike-concourse.git
 jobs:
 - name: tests
   plan:
-  - get: spike-concourse
+  - get: github-spike-concourse
   - task: run-pytest
     config:
       platform: linux
@@ -21,4 +21,4 @@ jobs:
           - |
             pytest
       inputs:
-      - name: spike-concourse
+      - name: github-spike-concourse
