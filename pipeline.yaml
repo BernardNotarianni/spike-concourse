@@ -7,7 +7,7 @@ jobs:
 - name: tests
   plan:
   - get: spike-concourse
-  - task: sample-task
+  - task: run-pytest
     config:
       platform: linux
       image_resource:
