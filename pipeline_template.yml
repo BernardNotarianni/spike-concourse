@@ -66,6 +66,4 @@ jobs:
             EOT
             gcloud auth activate-service-account --key-file=gcp-key.json
             export KUBECONFIG=./kubeconfig.yml
-            kubectl delete pod --selector=app=my-webapp
-            kubectl apply -f github-___TAG___/k8s.yml
-            
+            ./deploy-tag.sh ___TAG____
