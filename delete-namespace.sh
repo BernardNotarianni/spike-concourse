@@ -1,3 +1,3 @@
-NAMESPACE=dev-1
+NAMESPACE=$1
 
 kubectl delete namespaces $NAMESPACE
