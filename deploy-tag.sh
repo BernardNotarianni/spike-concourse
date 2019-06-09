@@ -6,7 +6,7 @@ echo "# Created by script $0" > $FILENAME
 echo "# From k8s_template.yml" >> $FILENAME
 echo "" >> $FILENAME
 
-cat k8s_template.yml | sed "s/___TAG___/$TAG/g" | sed "s/___NAMESPACE___/$TAG/g" >> $FILENAME
+cat k8s_template.yml | sed "s/___TAG___/$TAG/g" | sed "s/___NAMESPACE___/$NAMESPACE/g" >> $FILENAME
 
 kubectl delete pod -n$NAMESPACE
 kubectl apply -f $FILENAME
