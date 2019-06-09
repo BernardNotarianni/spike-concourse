@@ -35,3 +35,7 @@ List nodes
 
     $ KUBECONFIG=kubeconfig.yml kubectl get nodes
 
+
+[An article](https://blog.alterway.fr/en/multi-git-branches-workflow-with-concourse-ci.html)
+about multi git branches workflow on concourse, based on the [git branches](https://github.com/vito/git-branches-resource)
+concourse resource.

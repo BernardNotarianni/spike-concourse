@@ -21,17 +21,23 @@ jobs:
         type: docker-image
         source:
           repository: grihabor/pytest
+      inputs:
+      - name: github-spike-concourse
+      outputs:
+      - name: tag_for_docker_image
       run:
         path: sh
         args:
           - -exc
           - |
             pytest
-      inputs:
-      - name: github-spike-concourse
+            echo "dev-1" > tag_for_docker_image/tag
   - put: gcr.io/spike-concourse/my-webapp
-    params: {build: github-spike-concourse/my-webapp}
+    params:
+      build: github-spike-concourse/my-webapp
+      tag_file: tag_for_docker_image/tag
     get_params: {skip_download: true}
+
 - name: "Deploy on GKE"
   plan:
   - get: github-spike-concourse
