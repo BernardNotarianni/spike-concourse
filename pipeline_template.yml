@@ -1,0 +1,71 @@
+resources:
+- name: github-___TAG___
+  type: git
+  source:
+    uri: https://github.com/BernardNotarianni/spike-concourse.git
+    branch: ___BRANCH___
+- name: gcr.io/spike-concourse/my-webapp
+  type: docker-image
+  source:
+    repository: gcr.io/spike-concourse/my-webapp
+    username: _json_key
+    password: {{gcr-key}}
+jobs:
+- name: tests
+  plan:
+  - get: github-___TAG___
+    trigger: true
+  - task: run-pytest
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: grihabor/pytest
+      inputs:
+      - name: github-___TAG___
+      outputs:
+      - name: tag_for_docker_image
+      run:
+        path: sh
+        args:
+          - -exc
+          - |
+            pytest
+            echo "___TAG___" > tag_for_docker_image/tag
+  - put: gcr.io/spike-concourse/my-webapp
+    params:
+      build: github-___TAG___/my-webapp
+      tag_file: tag_for_docker_image/tag
+    get_params: {skip_download: true}
+
+- name: "Deploy on GKE"
+  plan:
+  - get: github-___TAG___
+    trigger: true
+    passed: [tests]
+  - task: publish
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: notarianni/gcloud-kubectl
+      inputs:
+      - name: github-___TAG___
+      run:
+        path: sh
+        args:
+          - -exc
+          - |
+            cat <<EOT >> gcp-key.json
+            ((gcr-key))
+            EOT
+            cat <<EOT >> kubeconfig.yml
+            ((k8s_server))
+            EOT
+            gcloud auth activate-service-account --key-file=gcp-key.json
+            export KUBECONFIG=./kubeconfig.yml
+            kubectl delete pod --selector=app=my-webapp
+            kubectl apply -f github-___TAG___/k8s.yml
+            
