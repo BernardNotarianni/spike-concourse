@@ -58,6 +58,7 @@ jobs:
         args:
           - -exc
           - |
+            cd github-___TAG___
             cat <<EOT >> gcp-key.json
             ((gcr-key))
             EOT
@@ -66,4 +67,4 @@ jobs:
             EOT
             gcloud auth activate-service-account --key-file=gcp-key.json
             export KUBECONFIG=./kubeconfig.yml
-            ./deploy-tag.sh ___TAG____
+            ./deploy-tag.sh ___TAG___
