@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: my-webapp
-          image: gcr.io/spike-concourse/my-webapp:dev-1
+          image: gcr.io/spike-concourse/my-webapp:___TAG___
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
