@@ -8,6 +8,7 @@ echo "" >> $FILENAME
 
 cat k8s_template.yml | sed "s/___TAG___/$TAG/g" | sed "s/___NAMESPACE___/$TAG/g" >> $FILENAME
 
+kubectl delete pod -n$NAMESPACE
 kubectl apply -f $FILENAME
 
 echo "tag $TAG deployed on kubernetes"
