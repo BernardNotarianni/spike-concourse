@@ -43,7 +43,7 @@ jobs:
       image_resource:
         type: docker-image
         source:
-          repository: notarianni/gke-kubectl
+          repository: notarianni/gcloud-kubectl
       inputs:
       - name: github-spike-concourse
       run:
