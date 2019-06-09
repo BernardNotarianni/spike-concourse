@@ -54,11 +54,11 @@ jobs:
             cat <<EOT >> gcp-key.json
             ((gcr-key))
             EOT
-            cat <<EOT >> kubeconfig.yaml
+            cat <<EOT >> kubeconfig.yml
             ((k8s_server))
             EOT
             gcloud auth activate-service-account --key-file=gcp-key.json
-            export KUBECONFIG=./kubeconfig.yaml
+            export KUBECONFIG=./kubeconfig.yml
             kubectl delete pod --selector=app=my-webapp
-            kubectl apply -f github-spike-concourse/k8s.yaml
+            kubectl apply -f github-spike-concourse/k8s.yml
             

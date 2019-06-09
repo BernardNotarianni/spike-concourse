@@ -21,7 +21,7 @@ Start concourse server
     
 Initialize the pipeline
 
-    $ fly -t tutorial set-pipeline -c pipeline.yaml -p my-webapp -l credentials.yaml
+    $ fly -t tutorial set-pipeline -c pipeline.yml -p my-webapp -l credentials.yml
     
 Activate gcloud service account
 
