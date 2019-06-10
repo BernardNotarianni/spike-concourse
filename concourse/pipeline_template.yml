@@ -87,7 +87,7 @@ jobs:
         args:
           - -exc
           - |
-            cd github-___TAG___
+            cd github-___TAG___/kubernetes
             cat <<EOT >> gcp-key.json
             ((gcr-key))
             EOT
