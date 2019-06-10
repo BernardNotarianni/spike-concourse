@@ -11,7 +11,7 @@ resources:
     username: _json_key
     password: {{gcr-key}}
 jobs:
-- name: tests
+- name: Build
   plan:
   - get: github-___TAG___
     trigger: true
@@ -43,7 +43,7 @@ jobs:
   plan:
   - get: github-___TAG___
     trigger: true
-    passed: [tests]
+    passed: [Build]
   - task: publish
     config:
       platform: linux
@@ -72,7 +72,7 @@ jobs:
 - name: "Delete from GKE"
   plan:
   - get: github-___TAG___
-    passed: [tests]
+    passed: [Build]
   - task: delete
     config:
       platform: linux
