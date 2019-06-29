@@ -7,8 +7,8 @@ Run tests
 
 Start the web app
 
-    $ python3 my_webapp.py
+    $ python3 frontend_webapp.py
     
 Build docker image
 
-    $ docker build -t my-webapp . 
+    $ docker build -t frontend-webapp . 
