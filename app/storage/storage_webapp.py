@@ -1,10 +1,13 @@
-from bottle import route, run, template
+from bottle import route, run, response
 import storage_domain
+import json
 
 @route('/')
 def index():
-    message = storage_domain.my_message()
-    return '<html><h1>Welcome to master branch</h1><p>{}</p></html>'.format(message)
+    data = storage_domain.get_data()
+    result = {'data': data}
+    response.content_type = 'application/json'
+    return json.dumps(result)
 
-run(host='0.0.0.0', port=8000)
+run(host='0.0.0.0', port=8002)
 

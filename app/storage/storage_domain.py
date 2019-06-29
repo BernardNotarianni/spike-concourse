@@ -1,3 +1,3 @@
 
-def storage_message():
-    return "Hello Concourse!"
+def get_data():
+    return "data in the storage"
